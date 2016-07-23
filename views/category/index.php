@@ -1,8 +1,6 @@
 <?php
 
-use app\widgets\ButtonGroup;
 use yii\grid\GridView;
-use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CategorySearch */
@@ -14,9 +12,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="category-index">
 
 
-    <?= ButtonGroup::widget(['links' => [
-        ['Create Category', ['create'], ['class' => 'btn btn-success']]
-    ]]) ?>
+    <div class="form-group">
+        <button class="btn btn-warning btn-raised" data-toggle="modal" data-target="#modal-category-create">
+            Create category
+        </button>
+    </div>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -30,4 +30,23 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+</div>
+
+<div class="modal fade" id="modal-category-create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
 </div>

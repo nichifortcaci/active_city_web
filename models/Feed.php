@@ -14,6 +14,7 @@ use Yii;
  * @property string $location
  * @property integer $category_id
  * @property string $start_datetime
+ * @property string $user_id
  * @property string $end_datetime
  */
 class Feed extends \yii\db\ActiveRecord
@@ -56,5 +57,11 @@ class Feed extends \yii\db\ActiveRecord
             'start_datetime' => 'Start Datetime',
             'end_datetime' => 'End Datetime',
         ];
+    }
+
+    public function displayDate()
+    {
+        $f = \Yii::$app->formatter;
+        return 'From ' . $f->asDatetime($this->start_datetime, 'long') . ' <br>To ' . $f->asDatetime($this->end_datetime, 'long');
     }
 }
