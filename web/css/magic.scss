@@ -21,6 +21,7 @@ hr {
     border-top: 1px solid rgba(0, 0, 0, .1);
 }
 .free-card {
+    border-radius: 5px;
     padding: 5px 18px;
     display: inline-block;
     position: relative;
@@ -82,7 +83,6 @@ hr {
         padding: 15px 0;
     }
 }
-
 @media (min-width: 768px) {
     .row-eq-height {
         display: -webkit-box;
@@ -90,4 +90,94 @@ hr {
         display: -ms-flexbox;
         display: flex;
     }
+    .user-photo {
+        padding: 17px;
+    }
+}
+.user-photo {
+    border-radius: 100%;
+}
+.feed-title {
+    small {
+        font-size: 45%;
+        display: block;
+    }
+}
+.comm {
+    padding-top: 10px;
+    .comm-item {
+        margin: 0 0 30px;
+        &:not(:first-child) {
+            border-top: 1px solid rgba(204, 204, 204, 0.49);
+            padding-top: 20px;
+        }
+        img {
+            width: 60px;
+            border-radius: 100%;
+        }
+        .comm-details {
+            padding-left: 70px;
+            .comm-user-name {
+                font-weight: bold;
+            }
+            .comm-details-sub {
+                b {
+
+                }
+                .date {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+.sdate, .sdate * {
+    display: block;
+}
+.sday, .other_sdate {
+    float: left;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 17px 0px, rgba(0, 0, 0, 0.188235) 0px 6px 20px 0px;
+}
+.other_sdate {
+    height: 44px;
+    margin-top: 3px;
+    box-sizing: border-box;
+}
+.sday {
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    font-size: 38px;
+    text-align: center;
+    font-weight: bolder;
+    z-index: 1;
+    background: #FF9800;
+    color: white;
+    border-radius: 2px;
+}
+.syear, .stime {
+    float: left;
+}
+.smounth, .other_syear_time {
+    width: 100px;
+    height: 22px;
+    margin: 0;
+    padding: 0;
+    line-height: 25px;
+    background: #3F51B5;
+}
+.smounth {
+    text-align: center;
+    font-size: 16px;
+    color: white;
+    border-bottom: 2px solid #303F9F;
+    box-sizing: border-box;
+}
+.syear, .stime {
+    font-size: 18px;
+    color: white;
+    width: 50px;
+    text-align: center;
+}
+.syear {
 }

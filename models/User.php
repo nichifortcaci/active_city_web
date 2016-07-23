@@ -82,7 +82,7 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->user_id;
     }
 
-    public function getPhoto($type = 'normal')
+    public function getPhoto($type = 'square')
     {
         // small, normal, album, large, square
         return "//graph.facebook.com/" . $this->getId() . "/picture?type=" . $type;

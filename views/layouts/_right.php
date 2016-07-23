@@ -4,7 +4,7 @@ use yii\bootstrap\Html;
 use yii\helpers\Url;
 
 ?>
-<div class="col-md-3">
+<div class="col-md-3 hidden-xs">
     <div class="free-card" style="height: 100%;">
         <h3>Categories:</h3>
         <div class="btn-group-vertical free-btn-group" style="display: block">

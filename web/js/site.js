@@ -7,6 +7,15 @@ $(function () {
     $.material.input();
     $.material.checkbox();
     $.material.radio();
+    $("#owl-example").owlCarousel({
+        slideSpeed: 300,
+        paginationSpeed: 400,
+        singleItem: true
+    });
 
-    
+    $('#fake-add-comm').click(fakeComm)
 });
+
+function fakeComm() {
+    alert()
+}

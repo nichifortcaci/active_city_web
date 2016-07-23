@@ -5,6 +5,7 @@
 
 use app\assets\ImageAsset;
 use app\assets\MaterialAsset;
+use app\models\Category;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -47,6 +48,7 @@ $img = ImageAsset::register($this);
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Feed', 'url' => ['/feed/index']],
+            ['label' => 'Categories', 'url' => '#', 'items' => Category::getNav()],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
             ['label' => 'Login', 'url' => ['/site/login']]

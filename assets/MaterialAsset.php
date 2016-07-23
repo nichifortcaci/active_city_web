@@ -21,12 +21,15 @@ class MaterialAsset extends AssetBundle
         'dist/css/material.css',
         'dist/css/ripples.css',
         'dist/css/font-awesome.css',
-        'dist/css/font-awesome.css',
+        'dist/css/owl.carousel.css',
+        'dist/css/owl.theme.css',
+        'dist/css/owl.transitions.css',
     ];
 
     public $js = [
         'dist/js/material.js',
         'dist/js/ripples.js',
+        'dist/js/owl.carousel.js',
     ];
 
     public $depends = [

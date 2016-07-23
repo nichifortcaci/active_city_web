@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "cl_category".
@@ -39,5 +40,18 @@ class Category extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
         ];
+    }
+
+    public static function getNav()
+    {
+        $c = self::find()->all();
+        $final = [];
+        foreach ($c as $w) {
+            $final[] = [
+                'label' => $w->name,
+                'url' => Url::to(['category/view', 'id' => $w->id])
+            ];
+        }
+        return $final;
     }
 }
