@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\assets\MapsAsset;
+use yii\helpers\ArrayHelper;
+use app\models\Category;
+MapsAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Feed */
@@ -18,7 +22,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'media')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'location')->hiddenInput(['id'=>'location'])->label(false) ?>
+    <div id="map"></div>
+    <?php $result = Category::find()->all(); ?>
+      <?=Html::activeDropDownList($model, 'category_id',ArrayHelper::map($result, 'id', 'name'),['class'=>'select']) ?>
 
     <?= $form->field($model, 'category_id')->textInput() ?>
 
@@ -33,3 +40,9 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+
+
+?>
