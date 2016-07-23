@@ -4,13 +4,15 @@ $( document ).ready( function() {
 	var g_lat = '';
 	var g_lon = '';
 
+	//$('.bs_datetime').bootstrapMaterialDatePicker();
+	$('#feed-start_datetime, #feed-end_datetime').bootstrapMaterialDatePicker({ format : 'YYYY-MM-DD HH:mm', minDate : new Date() });
 
 	//Google Maps JS
 	//Set Map
 	function initialize() {
 
 		//$(".select").dropdown({"optionClass": "withripple"});
-		$(".select").dropdown();
+		
 
 		var myLatlng = new google.maps.LatLng(g_lat,g_lon);
 		var imagePath = 'http://iconshow.me/media/images/Application/Map-Markers-icons/png/32/MapMarker_PushPin2__Pink.png';

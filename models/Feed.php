@@ -42,6 +42,17 @@ class Feed extends \yii\db\ActiveRecord
         ];
     }
 
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->user_id = Yii::$app->user->id;
+            }
+        } else {
+            return false;
+        }
+    }
+
     /**
      * @inheritdoc
      */

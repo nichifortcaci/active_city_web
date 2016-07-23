@@ -18,11 +18,12 @@ class MapsAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/jquery.dropdown.css'
+        'css/bootstrap-material-datetimepicker.css'
     ];
     public $js = [
         //'js/feed_create.js'
-        'js/jquery.dropdown.js'
+        'js/moment.js',
+        'js/bootstrap-material-datetimepicker.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

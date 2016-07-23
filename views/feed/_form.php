@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use app\assets\MapsAsset;
 use yii\helpers\ArrayHelper;
 use app\models\Category;
+use kartik\select2\Select2;
 MapsAsset::register($this);
 
 /* @var $this yii\web\View */
@@ -12,32 +13,51 @@ MapsAsset::register($this);
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="feed-form">
+<div class="feed-form free-card">
 
-    <?php $form = ActiveForm::begin(); ?>
+	<?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+	<?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'content')->textInput(['maxlength' => true]) ?>
+	<?= $form->field($model, 'content')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'media')->textInput(['maxlength' => true]) ?>
+	<?php //= $form->field($model, 'media')->textInput(['maxlength' => true]) ?>
+	<div class="form-group is-empty is-fileinput">
+		<label for="inputFile" class="col-md-2 control-label">File</label>
 
-    <?= $form->field($model, 'location')->hiddenInput(['id'=>'location'])->label(false) ?>
-    <div id="map"></div>
-    <?php $result = Category::find()->all(); ?>
-      <?=Html::activeDropDownList($model, 'category_id',ArrayHelper::map($result, 'id', 'name'),['class'=>'select']) ?>
+		<div class="col-md-10">
+			<input type="text" readonly="" class="form-control" placeholder="Browse...">
+			<input type="file" id="inputFile" name="media">
+		</div>
+	</div>
 
-    <?= $form->field($model, 'category_id')->textInput() ?>
+	<?= $form->field($model, 'location')->hiddenInput(['id'=>'location'])->label(false) ?>
+	<div id="map"></div>
+	<?php $result = Category::find()->all();
+	$array = ArrayHelper::map($result, 'id', 'name');
 
-    <?= $form->field($model, 'start_datetime')->textInput() ?>
+	echo $form->field($model, 'category_id')->widget(Select2::classname(), [
+	'data' => $array,
+	'options' => ['placeholder' => 'Select a state ...'],
+	'pluginOptions' => [
+		'allowClear' => true
+	],
+]);
 
-    <?= $form->field($model, 'end_datetime')->textInput() ?>
+	//<?= $form->field($model, 'category_id')->textInput()
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
+ ?>
 
-    <?php ActiveForm::end(); ?>
+
+	<?= $form->field($model, 'start_datetime')->textInput() ?>
+
+	<?= $form->field($model, 'end_datetime')->textInput() ?>
+
+	<div class="form-group">
+		<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+	</div>
+
+	<?php ActiveForm::end(); ?>
 
 </div>
 
