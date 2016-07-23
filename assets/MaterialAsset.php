@@ -21,6 +21,7 @@ class MaterialAsset extends AssetBundle
         'dist/css/material.css',
         'dist/css/ripples.css',
         'dist/css/font-awesome.css',
+        'dist/css/font-awesome.css',
     ];
 
     public $js = [

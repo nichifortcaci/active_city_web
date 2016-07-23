@@ -11,7 +11,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div class="site-login">
-    <img src="../storage/test.jpg" alt="Loading image...">
     <div class="row">
         <div class="col-md-5 col-sm-8 col-centered">
             <div class="free-card" id="auth">

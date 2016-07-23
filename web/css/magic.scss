@@ -69,3 +69,25 @@ hr {
         }
     }
 }
+.feed-view {
+    .free-card {
+        img {
+            max-width: 100%;
+        }
+    }
+}
+.free-btn-group {
+    a:not(.btn-primary) {
+        background: #FFF !important;
+        padding: 15px 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .row-eq-height {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+    }
+}
