@@ -5,7 +5,11 @@ $( document ).ready( function() {
 	var g_lon = '';
 
 	//$('.bs_datetime').bootstrapMaterialDatePicker();
-	$('#feed-start_datetime, #feed-end_datetime').bootstrapMaterialDatePicker({ format : 'YYYY-MM-DD HH:mm', minDate : new Date() });
+	var elements = $('#feed-start_datetime, #feed-end_datetime');
+	if(elements.length){
+		elements.bootstrapMaterialDatePicker({ format : 'YYYY-MM-DD HH:mm', minDate : new Date() });
+	}
+
 
 	//Google Maps JS
 	//Set Map
@@ -14,7 +18,8 @@ $( document ).ready( function() {
 		//$(".select").dropdown({"optionClass": "withripple"});
 		
 
-		var myLatlng = new google.maps.LatLng(g_lat,g_lon);
+		//var myLatlng = new google.maps.LatLng(g_lat,g_lon);
+		var myLatlng = new google.maps.LatLng(47.022907,28.835415);
 		var imagePath = 'http://iconshow.me/media/images/Application/Map-Markers-icons/png/32/MapMarker_PushPin2__Pink.png';
 		var mapOptions = {
 			zoom: 12,
@@ -55,15 +60,14 @@ $( document ).ready( function() {
 		});
 		google.maps.event.addListener(map, "click", function (e) {
 			var latLng = e.latLng;
-			setPagell({lat:e.latLng.lat(),lng:e.latLng.lng()});
+			setPagell({latitude:e.latLng.lat(),longitude:e.latLng.lng()});
 			combat = e;
-			console.log()
 			Circle.setCenter(latLng);
 			marker.setPosition(latLng);
 		});
 		google.maps.event.addListener(Circle, "click", function (e) {
 			var latLng = e.latLng;
-			setPagell({lat:e.latLng.lat(),lng:e.latLng.lng()});
+			setPagell({latitude:e.latLng.lat(),longitude:e.latLng.lng()});
 			Circle.setCenter(latLng);
 			marker.setPosition(latLng);
 		});
@@ -77,15 +81,19 @@ $( document ).ready( function() {
 	}
 
 
-	$.get('http://ip-api.com/json/',function(data){
-		g_lat = data.lat;
-		g_lon = data.lon;
-		console.log('he')
-		google.maps.event.addDomListener(window, 'load', initialize);
-	})
+	// $.get('http://ip-api.com/json/',function(data){
+	// 	g_lat = data.lat;
+	// 	g_lon = data.lon;
+	// 	console.log('he')
+	// 	google.maps.event.addDomListener(window, 'load', initialize);
+	// })
 
 	function setPagell(str){
 		var ll = JSON.stringify(str);
 		$('#location').val(ll);
+	}
+
+	if($('#map').length){
+		google.maps.event.addDomListener(window, 'load', initialize);
 	}
 });
