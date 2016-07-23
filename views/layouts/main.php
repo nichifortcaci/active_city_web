@@ -75,6 +75,14 @@ $img = ImageAsset::register($this);
 </footer>
 
 <?php $this->endBody() ?>
+<?php
+
+// $this->registerJsFile("https://maps.googleapis.com/maps/api/js?key=AIzaSyBLrIRLPaIZFiQs7pJN6nN6iBZO9G4t41Q&v=3.exp");
+// $this->registerJsFile(Yii::$app->request->baseUrl."/js/feed_create.js");
+$this->registerJsFile("https://maps.googleapis.com/maps/api/js?key=AIzaSyBLrIRLPaIZFiQs7pJN6nN6iBZO9G4t41Q&v=3.exp", ['position' => \yii\web\View::POS_END]);
+$this->registerJsFile(Yii::$app->request->baseUrl."/js/feed_create.js", ['position' => \yii\web\View::POS_END]);
+
+?>
 </body>
 </html>
 <?php $this->endPage() ?>
