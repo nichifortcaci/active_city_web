@@ -17,15 +17,19 @@ class MaterialAsset extends AssetBundle
 {
     public $sourcePath = __DIR__;
     public $css = [
-        'dist/css/bootstrap-material-design.css',
+        'dist/css/material.css',
         'dist/css/ripples.css',
     ];
     public $js = [
-        'dist/material.js',
-        'dist/ripples.js',
+        'dist/js/material.js',
+        'dist/js/ripples.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+    ];
+
+    public $publishOptions = [
+        'forceCopy' => true
     ];
 }
