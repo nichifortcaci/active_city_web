@@ -38,14 +38,22 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        /*
         'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
+            'class' => 'yii\web\UrlManager',
+            'showScriptName' => false,   // Disable index.php
+            'enablePrettyUrl' => true,   // Disable r= routes
+            'rules' => array(),
+        ],
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'facebook' => [
+                    'class' => 'yii\authclient\clients\Facebook',
+                    'clientId' => '1761372914075439',
+                    'clientSecret' => 'df542cede004d1e9c22e8403db0b8102',
+                ],
             ],
         ],
-        */
     ],
     'params' => $params,
 ];

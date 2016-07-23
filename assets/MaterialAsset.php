@@ -16,14 +16,18 @@ use yii\web\AssetBundle;
 class MaterialAsset extends AssetBundle
 {
     public $sourcePath = __DIR__;
+
     public $css = [
         'dist/css/material.css',
         'dist/css/ripples.css',
+        'dist/css/font-awesome.css',
     ];
+
     public $js = [
         'dist/js/material.js',
         'dist/js/ripples.js',
     ];
+
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',

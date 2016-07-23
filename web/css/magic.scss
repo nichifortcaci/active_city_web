@@ -1,0 +1,71 @@
+@import "variables";
+.card {
+    margin-bottom: 25px;
+    .card-footer {
+        button:first-child {
+            left: 0;
+        }
+    }
+    .card-content {
+        padding-bottom: 13px;
+        .card-image {
+            background-size: cover;
+            background-position: center center;
+        }
+    }
+}
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+}
+.free-card {
+    padding: 5px 18px;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    border-radius: 2px;
+    color: rgba(0, 0, 0, 0.87);
+    background: #fff;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+.btn {
+    &.btn-social {
+        color: #FFF;
+        padding: 15px;
+        position: relative;
+        font-size: 18px;
+        &:disabled {
+            color: #212121;
+        }
+        &.btn-facebook {
+            background: $facebook;
+            &:hover, &:focus {
+                background: darken($facebook, 5);
+            }
+        }
+        &.btn-twitter {
+            background: $twitter;
+            &:hover, &:focus {
+                background: darken($twitter, 5);
+            }
+        }
+        &.btn-google {
+            background: $google;
+            &:hover, &:focus {
+                background: darken($google, 5);
+            }
+        }
+        i {
+            position: absolute;
+            left: 15px;
+            font-size: 28px;
+            top: 14.5px;
+        }
+    }
+}

@@ -1,0 +1,56 @@
+.card {
+  margin-bottom: 25px; }
+  .card .card-footer button:first-child {
+    left: 0; }
+  .card .card-content {
+    padding-bottom: 13px; }
+    .card .card-content .card-image {
+      background-size: cover;
+      background-position: center center; }
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1); }
+
+.free-card {
+  padding: 5px 18px;
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  border-radius: 2px;
+  color: rgba(0, 0, 0, 0.87);
+  background: #fff;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+
+.col-centered {
+  float: none;
+  margin: 0 auto; }
+
+.btn.btn-social {
+  color: #FFF;
+  padding: 15px;
+  position: relative;
+  font-size: 18px; }
+  .btn.btn-social:disabled {
+    color: #212121; }
+  .btn.btn-social.btn-facebook {
+    background: #1E599B; }
+    .btn.btn-social.btn-facebook:hover, .btn.btn-social.btn-facebook:focus {
+      background: #1a4d86; }
+  .btn.btn-social.btn-twitter {
+    background: #00ACF6; }
+    .btn.btn-social.btn-twitter:hover, .btn.btn-social.btn-twitter:focus {
+      background: #009add; }
+  .btn.btn-social.btn-google {
+    background: #DC4C32; }
+    .btn.btn-social.btn-google:hover, .btn.btn-social.btn-google:focus {
+      background: #d13e24; }
+  .btn.btn-social i {
+    position: absolute;
+    left: 15px;
+    font-size: 28px;
+    top: 14.5px; }
+
+/*# sourceMappingURL=magic.css.map */
