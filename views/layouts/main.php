@@ -11,6 +11,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\models\Feed;
 
 MaterialAsset::register($this);
 AppAsset::register($this);
@@ -80,6 +81,42 @@ $img = ImageAsset::register($this);
 $this->registerJsFile("https://maps.googleapis.com/maps/api/js?key=AIzaSyBLrIRLPaIZFiQs7pJN6nN6iBZO9G4t41Q&v=3.exp", ['position' => \yii\web\View::POS_END]);
 $this->registerJsFile(Yii::$app->request->baseUrl."/js/feed_create.js", ['position' => \yii\web\View::POS_END]);
 
+if(Yii::$app->controller->id=='site' && Yii::$app->controller->action->id=='index'):
+    ob_start();?>
+    //<script>
+    <?php
+        $result = Feed::find()->limit(10)->orderBy('id DESC')->all();
+        if(isset($result[0]) && isset($result[0]->location) && $result[0]->location){
+             $location = json_decode($result[0]->location,1);
+        }else{
+             $location = json_decode('{"latitude":47.0056,"longitude":28.8575}',1);
+        }
+    ?>
+    googleMapGenerator.options.breakpointDynamicMap = 768;
+    googleMapGenerator.options.mapLat = <?=$location['latitude']?>;
+    googleMapGenerator.options.mapLng = <?=$location['longitude']?>;
+    googleMapGenerator.options.mapZoom = 17;
+    googleMapGenerator.options.markerIconType = 'numeric';
+    googleMapGenerator.options.markerIconHexBackground = 'ff6600';
+    googleMapGenerator.options.markerIconHexColor = '000000';
+    googleMapGenerator.options.hasPrint = false;
+    googleMapGenerator.options.locations = [
+    <?php
+        
+        foreach ($result as $row){
+            $location = json_decode($row->location,1);
+            echo('["'.$row->title.'","Republica Moldova Chișinău","'.$row->content.'",'.$location['latitude'].','.$location['longitude'].'],'."\n");
+    }
+
+    ?>
+    ];
+
+    // Init
+    var map = new googleMapGenerator();
+    <?php
+    $code = ob_get_clean();
+    $this->registerJs($code,  \yii\web\View::POS_END);
+endif;
 ?>
 </body>
 </html>

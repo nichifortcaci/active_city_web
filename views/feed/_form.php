@@ -13,7 +13,7 @@ MapsAsset::register($this);
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="feed-form free-card">
+<div class="feed-form">
 
 	<?php $form = ActiveForm::begin(); ?>
 

@@ -89,7 +89,7 @@ class Feed extends \yii\db\ActiveRecord
     public function getMapImg()
     {
         $gps = (array)json_decode($this->location);
-        return strtr('https://maps.googleapis.com/maps/api/staticmap?maptype=terrain&center={{lat}},{{long}}&size=1200x500&zoom=18&markers=color:0xFF9800%7Clabel:%7C47.022907,28.835415', [
+        return strtr('https://maps.googleapis.com/maps/api/staticmap?maptype=terrain&center={{lat}},{{long}}&size=1200x500&zoom=18&markers=color:0xFF9800%7Clabel:%7C47.022907,28.835415&key=AIzaSyBLrIRLPaIZFiQs7pJN6nN6iBZO9G4t41Q', [
             '{{long}}' => $gps['longitude'],
             '{{lat}}' => $gps['latitude'],
         ]);

@@ -4,10 +4,19 @@
 
 use app\models\Feed;
 use yii\helpers\Url;
+use app\assets\MainmapAsset;
 
 $this->title = 'City';
+MainmapAsset::register($this);
 ?>
 <div class="site-index">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="map" style="height: 60vh">
+
+            </div>
+        </div>
+    </div>
     <h1>Feeds</h1>
     <hr>
     <div class="row">
@@ -17,7 +26,7 @@ $this->title = 'City';
             ]) ?>
         <?php endforeach; ?>
     </div>
-
+    
     <div class="row">
         <div class="col-xs-12">
             <div class="bs-component">
