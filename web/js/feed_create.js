@@ -64,10 +64,10 @@ $( document ).ready( function() {
 				$.get('http://ip-api.com/json/',function(data){
 					g_lat = data.lat;
 					g_lon = data.lon;
-					myLatLng = new google.maps.LatLng({lat: data.lat, lng: data.lon});
-					//map.setCenter(myLatLng);
-					Circle.setCenter(myLatLng);
-					marker.setPosition(myLatLng);
+					myLatlng = new google.maps.LatLng({lat: data.lat, lng: data.lon});
+					//map.setCenter(myLatlng);
+					Circle.setCenter(myLatlng);
+					marker.setPosition(myLatlng);
 					setPagell({latitude:data.lat,longitude:data.lon});
 					//google.maps.event.addDomListener(window, 'load', initialize);
 				})
