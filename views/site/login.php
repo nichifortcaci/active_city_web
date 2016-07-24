@@ -30,6 +30,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     <i class="fa fa-google-plus"></i>
                     Google
                 </button>
+                <button class="btn btn-block btn-social btn-linkedin">
+                    <i class="fa fa-linkedin"></i>
+                    Linkedin
+                </button>
+                <button class="btn btn-block btn-social btn-yahoo">
+                    <i class="fa fa-yahoo"></i>
+                    Yahoo
+                </button>
+
+                <p class="text-center"> - OR - </p>
+
+                <button class="btn btn-block btn-social btn-social-none">
+<!--                    <i class="fa fa-yahoo"></i>-->
+                    Username and Pasword
+                </button>
             </div>
         </div>
     </div>

@@ -27,6 +27,9 @@ HTML;
             <div class="card-content">
                 <?= $card_image ?>
                 <div class="card-body">
+                    <a href="<?= Url::to(['category/view', 'id' => $feed->category_id]) ?>">
+                        <span class="badge badge-warning"><?= $feed->getCategoryName() ?></span>
+                    </a>
                     <p><?= $feed->content ?></p>
                 </div>
                 <footer class="card-footer">

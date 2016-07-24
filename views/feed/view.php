@@ -2,9 +2,11 @@
 
 use app\models\Category;
 use app\models\Comment;
+use app\models\Support;
 use app\models\User;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Feed */
@@ -23,7 +25,7 @@ $date = [
         'year' => date('Y', strtotime($model->start_datetime)),
         'time' => date('H:m', strtotime($model->start_datetime)),
     ],
-]
+];
 ?>
 <div class="feed-view">
 
@@ -68,12 +70,30 @@ $date = [
                 </div>
                 <div class="map"></div>
                 <div class="media">
-                    <?= Html::img($model->getSrc()) ?>
+                    <?php if ($model->hasMedia()): ?>
+                        <?= Html::img($model->getMedia(), [
+                        ]) ?>
+                    <?php endif; ?>
+
+                    <h4>
+                        <b>Map:</b>
+                    </h4>
+
+                    <?= Html::img($model->getMapImg()) ?>
                 </div>
+                <button id="support" class="pull-right btn btn-raised btn-warning btn-fab"
+                        data-feed-id="<?= $model->id ?>"
+                        style="margin: 10px 0;" <?= Support::hasSupport($model->id) ? "disabled" : "" ?>>
+                    <i class="material-icons">done</i>
+                </button>
                 <h4>
                     <b>Description:</b>
                     <br>
                     <?= $model->content ?>
+                    <br>
+                    <br>
+                    <a href="<?= Url::to(['feed/export', 'id' => $model->id]) ?>"
+                       class="btn btn-raised btn-success pull-right">Export</a>
                 </h4>
             </div>
             <?php if (!(Yii::$app->user->isGuest && count(Comment::findAll(['feed_id' => $model->id])))): ?>

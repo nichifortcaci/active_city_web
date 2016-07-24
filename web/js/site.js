@@ -19,6 +19,8 @@ $(function () {
     $('#comment-form').submit(fakeComm);
 
     notifications = setInterval(notify, 1000);
+
+    $('#support').click(support)
 });
 
 function fakeComm() {
@@ -36,4 +38,28 @@ function notify() {
     var content = "This is my awesome snackbar!";
 
     // $.snackbar({content: content});
+}
+
+function support() {
+    var me = $(this);
+    var feed_id = me.attr('data-feed-id');
+    $.ajax({
+        url: '/support/create',
+        data: {
+            'feed_id': feed_id
+        },
+        type: 'post',
+        success: function (response) {
+            if (!response) {
+                _snack('Something went wrong!');
+            } else {
+                _snack('Thank you!');
+                me.prop('disabled', true);
+            }
+        }
+    });
+}
+
+function _snack(content) {
+    $.snackbar({content: content});
 }

@@ -73,25 +73,40 @@ class Feed extends \yii\db\ActiveRecord
     public function displayDate()
     {
         $f = \Yii::$app->formatter;
-        return 'From ' . $f->asDatetime($this->start_datetime, 'long') . ' <br>To ' . $f->asDatetime($this->end_datetime, 'long');
+        return 'From <b>' . $f->asDatetime($this->start_datetime, 'long') . '</b> to <b>' . $f->asDatetime($this->end_datetime, 'long') . '</b>';
     }
 
     public function getSrc()
     {
-        if (empty($this->media) || is_null($this->media)) {
-            return $this->getMapImg();
+        if ($this->hasMedia()) {
+            return $this->getMedia();
         } else {
-            $data = (array)json_decode($this->media);
-            return $data['path'];
+            return $this->getMapImg();
         }
+    }
+
+    public function hasMedia()
+    {
+        return !(empty($this->media) || is_null($this->media));
+    }
+
+    public function getMedia()
+    {
+        $data = (array)json_decode($this->media);
+        return $data['path'];
     }
 
     public function getMapImg()
     {
         $gps = (array)json_decode($this->location);
-        return strtr('https://maps.googleapis.com/maps/api/staticmap?maptype=terrain&center={{lat}},{{long}}&size=1200x500&zoom=18&markers=color:0xFF9800%7Clabel:%7C47.022907,28.835415', [
+        return strtr('https://maps.googleapis.com/maps/api/staticmap?maptype=terrain&center={{lat}},{{long}}&size=640x500&zoom=18&markers=color:0xFF9800%7Clabel:%7C47.022907,28.835415&key=AIzaSyBLrIRLPaIZFiQs7pJN6nN6iBZO9G4t41Q', [
             '{{long}}' => $gps['longitude'],
             '{{lat}}' => $gps['latitude'],
         ]);
+    }
+
+    public function getCategoryName()
+    {
+        return Category::findOne($this->category_id)->name;
     }
 }

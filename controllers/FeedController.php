@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Category;
+use kartik\mpdf\Pdf;
 use Yii;
 use app\models\Feed;
 use app\models\FeedSearch;
@@ -117,6 +118,30 @@ class FeedController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionExport($id)
+    {
+        $model = $this->findModel($id);
+        $content = $this->renderPartial('_export', [
+            'model' => $model,
+        ]);
+
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_UTF8,
+            'format' => Pdf::FORMAT_A4,
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'destination' => Pdf::DEST_BROWSER,
+            'content' => $content,
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+            'cssInline' => '',
+            'options' => ['title' => 'Feed #' . 1],
+            'methods' => [
+                'SetHeader' => ['Active City'],
+                'SetFooter' => ['{PAGENO}'],
+            ]
+        ]);
+        return $pdf->render();
     }
 
     /**
