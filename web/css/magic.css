@@ -14,8 +14,10 @@ hr {
   border: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1); }
 
+.card, .free-card {
+  border-radius: 5px !important; }
+
 .free-card {
-  border-radius: 5px;
   padding: 5px 18px;
   display: inline-block;
   position: relative;
@@ -55,6 +57,8 @@ hr {
     top: 14.5px; }
 
 .feed-view .free-card img {
+  margin: auto;
+  display: block;
   max-width: 100%; }
 
 .free-btn-group a:not(.btn-primary) {
@@ -141,5 +145,8 @@ hr {
   color: white;
   width: 50px;
   text-align: center; }
+
+.card .card-image .card-image-headline {
+  text-shadow: 2px 2px 10px #000; }
 
 /*# sourceMappingURL=magic.css.map */

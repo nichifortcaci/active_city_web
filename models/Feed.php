@@ -75,4 +75,23 @@ class Feed extends \yii\db\ActiveRecord
         $f = \Yii::$app->formatter;
         return 'From ' . $f->asDatetime($this->start_datetime, 'long') . ' <br>To ' . $f->asDatetime($this->end_datetime, 'long');
     }
+
+    public function getSrc()
+    {
+        if (empty($this->media) || is_null($this->media)) {
+            return $this->getMapImg();
+        } else {
+            $data = (array)json_decode($this->media);
+            return $data['path'];
+        }
+    }
+
+    public function getMapImg()
+    {
+        $gps = (array)json_decode($this->location);
+        return strtr('https://maps.googleapis.com/maps/api/staticmap?maptype=terrain&center={{lat}},{{long}}&size=1200x500&zoom=18&markers=color:0xFF9800%7Clabel:%7C47.022907,28.835415', [
+            '{{long}}' => $gps['longitude'],
+            '{{lat}}' => $gps['latitude'],
+        ]);
+    }
 }

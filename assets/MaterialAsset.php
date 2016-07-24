@@ -24,12 +24,14 @@ class MaterialAsset extends AssetBundle
         'dist/css/owl.carousel.css',
         'dist/css/owl.theme.css',
         'dist/css/owl.transitions.css',
+        'dist/css/snackbar.min.css',
     ];
 
     public $js = [
         'dist/js/material.js',
         'dist/js/ripples.js',
         'dist/js/owl.carousel.js',
+        'dist/js/snackbar.min.js',
     ];
 
     public $depends = [

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Category;
 use Yii;
 use app\models\Feed;
 use app\models\FeedSearch;
@@ -35,12 +36,24 @@ class FeedController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new FeedSearch();
+        /*$searchModel = new FeedSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+        ]);*/
+        $c = Category::find()->all();
+        $final = [];
+        foreach ($c as $q) {
+            $final[$q->name] = [];
+            foreach (Feed::findAll([
+                'category_id' => $q->id
+            ]) as $f)
+                $final[$q->name][] = $f;
+        }
+        return $this->render('all', [
+            'data' => $final
         ]);
     }
 

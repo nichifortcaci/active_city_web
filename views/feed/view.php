@@ -16,20 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
 $category = Category::findOne($model->category_id);
 $user = User::findOne($model->user_id);
 
-$media = [
-    [
-        'type' => 1,
-        'path' => '/storage/test.jpg'
-    ],
-    [
-        'type' => 1,
-        'path' => '/storage/test.jpg'
-    ],
-    [
-        'type' => 1,
-        'path' => '/storage/test.jpg'
-    ],
-];
 $date = [
     [
         'day' => date('d', strtotime($model->start_datetime)),
@@ -73,84 +59,96 @@ $date = [
                     </div>
                     <div class="col-md-6">
                         <div class="pull-right">
-                            <span style="font-size: 19px;"><?= $category->name ?></span>
+                            <span style="font-size: 19px; display: inline-block;"><?= $category->name ?></span>
                             <?= Html::img('/storage/accident_min.png', [
-                                'style' => 'width: 50px;'
+                                'style' => 'width: 50px; display: inline-block;'
                             ]) ?>
                         </div>
                     </div>
                 </div>
                 <div class="map"></div>
                 <div class="media">
-                    <div id="owl-example" class="owl-carousel">
-                        <?php foreach ($media as $item): ?>
-                            <div class="item">
-
-                                <?php if ($item['type'] == 1): ?>
-                                    <?= Html::img($item['path']) ?>
-                                <?php elseif ($item['type'] == 2): ?>
-
-                                <?php endif; ?>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-
+                    <?= Html::img($model->getSrc()) ?>
                 </div>
                 <h4>
+                    <b>Description:</b>
+                    <br>
                     <?= $model->content ?>
                 </h4>
             </div>
-            <div class="free-card feed-comments" style="margin-top: 18px">
-                <div class="comm">
-                    <?php foreach (Comment::findAll(['feed_id' => $model->id]) as $c):
-                        $c_user = User::findOne($c->user_id);
-                        ?>
-                        <div class="comm-item">
-                            <?= Html::img($c_user->getPhoto(), ['class' => 'pull-left']) ?>
-                            <div class="comm-details">
-                                <p class="comm-details-sub">
-                                    <b>
-                                        <?= $c_user->name ?>
-                                    </b>
-                                    <span class="date text-muted">
+            <?php if (!(Yii::$app->user->isGuest && count(Comment::findAll(['feed_id' => $model->id])))): ?>
+                <div class="free-card feed-comments" style="margin-top: 18px">
+                    <h4><b>Comments:</b></h4>
+                    <div class="comm" id="comments">
+                        <?php foreach (Comment::findAll(['feed_id' => $model->id]) as $c):
+                            $c_user = User::findOne($c->user_id);
+                            ?>
+                            <div class="comm-item">
+                                <?= Html::img($c_user->getPhoto(), ['class' => 'pull-left']) ?>
+                                <div class="comm-details">
+                                    <p class="comm-details-sub">
+                                        <b>
+                                            <?= $c_user->name ?>
+                                        </b>
+                                        <span class="date text-muted">
                                     <?= Yii::$app->formatter->asDatetime($c->created_at) ?>
                                 </span>
-                                </p>
-                                <?= Html::tag('p', $c->comment, [
-                                    'class' => 'comm-user-comment'
-                                ]) ?>
+                                    </p>
+                                    <?= Html::tag('p', $c->comment, [
+                                        'class' => 'comm-user-comment'
+                                    ]) ?>
+                                </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-                <?php $form = ActiveForm::begin([
-                    'id' => 'comment-form',
-                    'action' => ['comment/create']
-                ]);
-                $comment = new Comment();
-                ?>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php if (!Yii::$app->user->isGuest): ?>
+                        <?php $form = ActiveForm::begin([
+                            'id' => 'comment-form',
+                            'action' => ['comment/create']
+                        ]);
+                        $comment = new Comment();
+                        ?>
 
-                <div class="form-group label-floating is-empty">
-                    <label class="control-label" for="addon2">Comment</label>
-                    <div class="input-group">
-                        <input type="text" id="addon2" class="form-control">
-                        <span class="input-group-btn">
-                            <button type="button" id="fake-add-comm" class="btn btn-fab btn-fab-mini btn-warning">
+                        <div class="form-group label-floating is-empty">
+                            <label class="control-label" for="addon2">Comment</label>
+                            <div class="input-group">
+                                <input type="text" id="addon2" class="form-control">
+                                <span class="input-group-btn">
+                            <button type="submit" id="fake-add-comm" class="btn btn-fab btn-fab-mini btn-warning">
                                 <i class="material-icons">send</i>
                             </button>
                         </span>
-                    </div>
+                            </div>
+                        </div>
+
+                        <?= $form->field($comment, 'user_id')->hiddenInput([
+                            'value' => $model->id
+                        ])->label(false) ?>
+
+                        <?php ActiveForm::end(); ?>
+                    <?php endif; ?>
+
                 </div>
+            <?php endif; ?>
 
-                <?= $form->field($comment, 'user_id')->hiddenInput([
-                    'value' => $model->id
-                ])->label(false) ?>
-
-                <?php ActiveForm::end(); ?>
-
-            </div>
         </div>
         <?= $this->render('../layouts/_right') ?>
     </div>
 
+</div>
+<div class="hidden">
+    <?php if (!Yii::$app->user->isGuest): ?>
+        <?php
+        $current = User::findOne(Yii::$app->user->id);
+        ?>
+        <div class="comm-item">
+            <img class="pull-left" src="<?= $current->getPhoto() ?>" alt="">
+            <div class="comm-details">
+                <p class="comm-details-sub">
+                    <b><?= $user->name ?></b>
+                    <span class="date text-muted">Jul 24, 2016 <span class="time">10:45:15</span> PM</span>
+                </p>
+                <p class="comm-user-comment"></p></div>
+        </div>
+    <?php endif; ?>
 </div>

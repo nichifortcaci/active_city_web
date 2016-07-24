@@ -1,6 +1,9 @@
 /**
  * Created by hobroker on 7/23/16.
  */
+
+var notifications;
+
 $(function () {
     $.material.init();
     $.material.ripples();
@@ -13,9 +16,24 @@ $(function () {
         singleItem: true
     });
 
-    $('#fake-add-comm').click(fakeComm)
+    $('#comment-form').submit(fakeComm);
+
+    notifications = setInterval(notify, 1000);
 });
 
 function fakeComm() {
-    alert()
+    var template = $('.hidden .comm-item').clone();
+    var input = $('#addon2');
+    template.find('.comm-user-comment').text(input.val());
+    var d = new Date();
+    template.find('.time').text(d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds());
+    input.val('');
+    template.appendTo('#comments');
+    return false;
+}
+
+function notify() {
+    var content = "This is my awesome snackbar!";
+
+    // $.snackbar({content: content});
 }
