@@ -105,7 +105,8 @@ if(Yii::$app->controller->id=='site' && Yii::$app->controller->action->id=='inde
         
         foreach ($result as $row){
             $location = json_decode($row->location,1);
-            echo('["'.$row->title.'","Republica Moldova Chișinău","'.$row->content.'",'.$location['latitude'].','.$location['longitude'].'],'."\n");
+            
+            echo('["'.str_replace('"', '\"', $row->title).'","Republica Moldova Chișinău","'.str_replace('"', '\"', $row->content).'",'.$location['latitude'].','.$location['longitude'].'],'."\n");
     }
 
     ?>
