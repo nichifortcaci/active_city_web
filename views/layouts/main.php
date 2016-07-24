@@ -86,7 +86,7 @@ if(Yii::$app->controller->id=='site' && Yii::$app->controller->action->id=='inde
     //<script>
     <?php
         $result = Feed::find()->limit(10)->orderBy('id DESC')->all();
-        if(isset($result[0]) && isset($result[0]->location) && $result[0]->location){
+        if(1 || (isset($result[0]) && isset($result[0]->location) && $result[0]->location)){
              $location = json_decode($result[0]->location,1);
         }else{
              $location = json_decode('{"latitude":47.0056,"longitude":28.8575}',1);
