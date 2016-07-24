@@ -60,7 +60,7 @@ MapsAsset::register($this);
         <?= $form->field($model, 'end_datetime')->textInput() ?>
 
         <div class="form-group">
-            <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-success']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
