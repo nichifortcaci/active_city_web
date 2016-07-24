@@ -79,7 +79,12 @@ class FeedController extends Controller
     {
         $model = new Feed();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            echo('<pre>');
+            print_r($model);
+            var_dump($model->save());
+            // $model->save();
+            die();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
