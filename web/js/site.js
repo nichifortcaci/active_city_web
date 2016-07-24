@@ -1,7 +1,21 @@
 /**
  * Created by hobroker on 7/23/16.
  */
-
+$.fn.serializeObject = function () {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function () {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
 var notifications;
 
 $(function () {
@@ -20,7 +34,14 @@ $(function () {
 
     notifications = setInterval(notify, 1000);
 
-    $('#support').click(support)
+    $('#support').click(support);
+
+    $(document).on('submit', '#feed-create', feedCreate);
+
+    $(document).ajaxComplete(initialize)
+    $('#myModal').on('show.bs.modal', function () {
+        loadFeedForm();
+    })
 });
 
 function fakeComm() {
@@ -62,4 +83,36 @@ function support() {
 
 function _snack(content) {
     $.snackbar({content: content});
+}
+
+function feedCreate(e) {
+    e.preventDefault();
+    var me = $(this);
+    var data = me.serializeObject();
+    $.ajax({
+        url: '/feed/create',
+        data: data,
+        type: 'post',
+        success: function (response) {
+            if (!response)
+                alert(messages.oops);
+            else {
+                if (!response) {
+                    _snack('Something went wrong!');
+                } else {
+                    _snack('OK!');
+                }
+            }
+        }
+    });
+    return false;
+}
+
+function loadFeedForm() {
+    $.ajax({
+        url: '/feed/create',
+        success: function (response) {
+            $('#feed-body').html(response);
+        }
+    });
 }

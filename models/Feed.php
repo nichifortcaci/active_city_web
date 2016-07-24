@@ -37,7 +37,6 @@ class Feed extends \yii\db\ActiveRecord
             [['category_id'], 'integer'],
             [['start_datetime', 'end_datetime'], 'safe'],
             [['title'], 'string', 'max' => 100],
-            [['content', 'location'], 'string', 'max' => 150],
             [['media'], 'string', 'max' => 350],
         ];
     }
@@ -47,6 +46,7 @@ class Feed extends \yii\db\ActiveRecord
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->user_id = Yii::$app->user->id;
+                return true;
             }
         } else {
             return false;

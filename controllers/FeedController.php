@@ -79,14 +79,18 @@ class FeedController extends Controller
     {
         $model = new Feed();
 
-        if ($model->load(Yii::$app->request->post())) {
-            echo('<pre>');
-            print_r($model);
-            var_dump($model->save());
-            // $model->save();
-            die();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if (Yii::$app->request->isAjax)
+                return true;
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            if (Yii::$app->request->isAjax && Yii::$app->request->isPost)
+                return true;
+            if (Yii::$app->request->isAjax) {
+                return $this->renderAjax('create', [
+                    'model' => $model,
+                ]);
+            }
             return $this->render('create', [
                 'model' => $model,
             ]);

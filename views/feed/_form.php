@@ -6,6 +6,7 @@ use app\assets\MapsAsset;
 use yii\helpers\ArrayHelper;
 use app\models\Category;
 use kartik\select2\Select2;
+
 MapsAsset::register($this);
 
 /* @var $this yii\web\View */
@@ -13,59 +14,60 @@ MapsAsset::register($this);
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="feed-form">
+    <div class="feed-form">
 
-	<?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin([
+            'id' => 'feed-create'
+        ]); ?>
 
-	<?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-	<?= $form->field($model, 'content')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'content')->textArea() ?>
 
-	<?php //= $form->field($model, 'media')->textInput(['maxlength' => true]) ?>
-	<div class="form-group is-empty is-fileinput">
-		<label for="inputFile" class="col-md-2 control-label">File</label>
+        <?php //= $form->field($model, 'media')->textInput(['maxlength' => true]) ?>
+        <div class="form-group is-empty is-fileinput">
+            <label for="inputFile" class="col-md-2 control-label">File</label>
 
-		<div class="col-md-10">
-			<input type="text" readonly="" class="form-control" placeholder="Browse...">
-			<input type="file" id="inputFile" name="media">
-		</div>
-	</div>
+            <div class="col-md-10">
+                <input type="text" readonly="" class="form-control" placeholder="Browse...">
+                <input type="file" id="inputFile" name="media">
+            </div>
+        </div>
 
-	<?= $form->field($model, 'location')->hiddenInput(['id'=>'location'])->label(false) ?>
-	<div class="form-group field-feed-location">
-		<button class="btn btn-primary" id="find_me">find me</button>
-		<div id="map" class="col-xs-12" style="float: none!important;"></div>
-	</div>
-	<?php $result = Category::find()->all();
-	$array = ArrayHelper::map($result, 'id', 'name');
+        <?= $form->field($model, 'location')->hiddenInput(['id' => 'location'])->label(false) ?>
+        <div class="form-group field-feed-location">
+            <button class="btn btn-primary" id="find_me" type="button">find me</button>
+            <div id="map" class="col-xs-12" style="float: none!important;"></div>
+        </div>
+        <?php $result = Category::find()->all();
+        $array = ArrayHelper::map($result, 'id', 'name');
 
-	echo $form->field($model, 'category_id')->widget(Select2::classname(), [
-	'data' => $array,
-	'options' => ['placeholder' => 'Select a state ...'],
-	'pluginOptions' => [
-		'allowClear' => true
-	],
-]);
+        echo $form->field($model, 'category_id')->widget(Select2::classname(), [
+            'data' => $array,
+            'options' => ['placeholder' => 'Select a state ...'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
 
-	//<?= $form->field($model, 'category_id')->textInput()
+        //<?= $form->field($model, 'category_id')->textInput()
 
- ?>
+        ?>
 
 
-	<?= $form->field($model, 'start_datetime')->textInput() ?>
+        <?= $form->field($model, 'start_datetime')->textInput() ?>
 
-	<?= $form->field($model, 'end_datetime')->textInput() ?>
+        <?= $form->field($model, 'end_datetime')->textInput() ?>
 
-	<div class="form-group">
-		<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-	</div>
+        <div class="form-group">
+            <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        </div>
 
-	<?php ActiveForm::end(); ?>
+        <?php ActiveForm::end(); ?>
 
-</div>
+    </div>
 
 <?php
-
 
 
 ?>

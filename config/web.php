@@ -56,6 +56,7 @@ $config = [
         ],
     ],
     'params' => $params,
+    'timezone' => 'Europe/Chisinau'
 ];
 
 if (YII_ENV_DEV) {

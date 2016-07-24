@@ -26,6 +26,7 @@ $date = [
         'time' => date('H:m', strtotime($model->start_datetime)),
     ],
 ];
+
 ?>
 <div class="feed-view">
 
