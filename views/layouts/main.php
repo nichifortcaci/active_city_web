@@ -9,6 +9,7 @@ use app\models\Category;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\web\View;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\models\Feed;
@@ -75,26 +76,26 @@ $img = ImageAsset::register($this);
 
 <?php $this->endBody() ?>
 <?php
-
+$this->registerJs('var current_user_id=' . (Yii::$app->user->isGuest ? 0 : Yii::$app->user->id), View::POS_BEGIN);
 // $this->registerJsFile("https://maps.googleapis.com/maps/api/js?key=AIzaSyBLrIRLPaIZFiQs7pJN6nN6iBZO9G4t41Q&v=3.exp");
 // $this->registerJsFile(Yii::$app->request->baseUrl."/js/feed_create.js");
 $this->registerJsFile("https://maps.googleapis.com/maps/api/js?key=AIzaSyBLrIRLPaIZFiQs7pJN6nN6iBZO9G4t41Q&v=3.exp", ['position' => \yii\web\View::POS_END]);
-$this->registerJsFile(Yii::$app->request->baseUrl."/js/feed_create.js", ['position' => \yii\web\View::POS_END]);
+$this->registerJsFile(Yii::$app->request->baseUrl . "/js/feed_create.js", ['position' => \yii\web\View::POS_END]);
 
-if(Yii::$app->controller->id=='site' && Yii::$app->controller->action->id=='index'):
-    ob_start();?>
-    //<script>
+if (Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id == 'index'):
+    ob_start(); ?>
+
     <?php
-        $result = Feed::find()->limit(10)->orderBy('id DESC')->all();
-        if(1 || (isset($result[0]) && isset($result[0]->location) && $result[0]->location)){
-             $location = json_decode($result[0]->location,1);
-        }else{
-             $location = json_decode('{"latitude":47.0056,"longitude":28.8575}',1);
-        }
+    $result = Feed::find()->limit(10)->orderBy('id DESC')->all();
+    if (1 || (isset($result[0]) && isset($result[0]->location) && $result[0]->location)) {
+        $location = json_decode($result[0]->location, 1);
+    } else {
+        $location = json_decode('{"latitude":47.0056,"longitude":28.8575}', 1);
+    }
     ?>
     googleMapGenerator.options.breakpointDynamicMap = 768;
-    googleMapGenerator.options.mapLat = <?=$location['latitude']?>;
-    googleMapGenerator.options.mapLng = <?=$location['longitude']?>;
+    googleMapGenerator.options.mapLat = <?= $location['latitude'] ?>;
+    googleMapGenerator.options.mapLng = <?= $location['longitude'] ?>;
     googleMapGenerator.options.mapZoom = 17;
     googleMapGenerator.options.markerIconType = 'numeric';
     googleMapGenerator.options.markerIconHexBackground = 'ff6600';
@@ -102,17 +103,23 @@ if(Yii::$app->controller->id=='site' && Yii::$app->controller->action->id=='inde
     googleMapGenerator.options.hasPrint = false;
     googleMapGenerator.options.locations = [
     <?php
-        
-        $ref=[
-        "\n"=>'<br>',
-        "'"=>'`',
-        '"'=>'`',
-        "\t"=>'&nbsp;'
-        ];
-        foreach ($result as $row){
-            $location = json_decode($row->location,1);
 
-            echo('["'.strtr($row->title,$ref).'","Republica Moldova Chișinău","'.strtr($row->content,$ref).'",'.$location['latitude'].','.$location['longitude'].'],'."\n");
+    $ref = [
+        "\n" => '',
+        "'" => '`',
+        '"' => '`',
+        "\t" => '&nbsp;'
+    ];
+    foreach ($result as $row) {
+        $location = json_decode($row->location, 1);
+
+        echo('[
+            ' . json_encode($row->title) . ',
+            "Republica Moldova Chișinău",
+            ' . json_encode($row->content) . ',
+            ' . $location['latitude'] . ',
+            ' . $location['longitude'] . '],
+            ' . "\n");
     }
 
     ?>
@@ -122,7 +129,7 @@ if(Yii::$app->controller->id=='site' && Yii::$app->controller->action->id=='inde
     var map = new googleMapGenerator();
     <?php
     $code = ob_get_clean();
-    $this->registerJs($code,  \yii\web\View::POS_END);
+    $this->registerJs($code, \yii\web\View::POS_END);
 endif;
 ?>
 </body>

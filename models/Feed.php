@@ -46,8 +46,12 @@ class Feed extends \yii\db\ActiveRecord
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->user_id = Yii::$app->user->id;
-                return true;
+                $temp = json_decode($this->location, 1);
+                if (!isset($temp['latidude']) || !isset($temp['longitude'])) {
+                    $this->location = '{"latitude":47.0056,"longitude":28.8575}';
+                }
             }
+            return true;
         } else {
             return false;
         }

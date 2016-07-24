@@ -13,9 +13,13 @@ use app\models\Feed;
 $this->title = 'Feeds';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php if (!Yii::$app->user->isGuest): ?>
+
 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
     Create new Feed
 </button>
+
+<?php endif; ?>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">

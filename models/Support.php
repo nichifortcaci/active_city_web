@@ -53,4 +53,16 @@ class Support extends \yii\db\ActiveRecord
             'user_id' => Yii::$app->user->id,
         ])->one());
     }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->readed = false;
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

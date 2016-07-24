@@ -32,7 +32,7 @@ $(function () {
 
     $('#comment-form').submit(fakeComm);
 
-    notifications = setInterval(notify, 1000);
+    notify();
 
     $('#support').click(support);
 
@@ -52,6 +52,7 @@ $(function () {
     $('#myModal').on('show.bs.modal', function () {
         loadFeedForm();
     })
+
 });
 
 function fakeComm() {
@@ -66,9 +67,15 @@ function fakeComm() {
 }
 
 function notify() {
-    var content = "This is my awesome snackbar!";
-
-    // $.snackbar({content: content});
+    $.ajax({
+        url: '/site/notify',
+        type: 'post',
+        success: function (response) {
+            for (var i = 0; i < response.length; i++) {
+                _snack('New supporter on feed: <b>' + response[i].feed.title + '</b> <br> <b>' + response[i].user.name + '</b>');
+            }
+        }
+    });
 }
 
 function support() {
@@ -92,7 +99,12 @@ function support() {
 }
 
 function _snack(content) {
-    $.snackbar({content: content});
+    $.snackbar({
+        content: content,
+        style: "toast",
+        timeout: 0,
+        htmlAllowed: true,
+    });
 }
 
 function feedCreate(e) {
@@ -129,3 +141,4 @@ function loadFeedForm() {
         }
     });
 }
+

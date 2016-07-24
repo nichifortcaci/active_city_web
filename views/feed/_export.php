@@ -42,7 +42,7 @@ $category = Category::findOne($model->category_id);
         <b>Media:</b>
     </p>
     <?= Html::img($model->getMedia(), [
-        'style' => 'max-height: 200px'
+//        'style' => 'max-height: 200px'
     ]) ?>
 <?php endif; ?>
 <p>

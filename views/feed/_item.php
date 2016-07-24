@@ -1,23 +1,9 @@
 <?php
+use yii\bootstrap\Html;
 use yii\helpers\Url;
 
 $title = $feed->title;
 $src = $feed->getSrc();
-if (empty($feed->media)) {
-    $card_image = <<<HTML
-<div class="card-image"
-     style="background-image: url('{$src}')">
-    <h3 class="card-image-headline">{$title}</h3>
-</div>
-HTML;
-} else {
-    $card_image = <<<HTML
-<div class="card-image">
-    <img src="{$src}" alt="Loading image...">
-    <h3 class="card-image-headline">{$title}</h3>
-</div>
-HTML;
-}
 
 ?>
 <a href="<?= Url::to(['feed/view', 'id' => $feed->id]) ?>">
@@ -25,7 +11,10 @@ HTML;
         <div class="card">
             <div class="card-height-indicator"></div>
             <div class="card-content">
-                <?= $card_image ?>
+                <div class="card-image"
+                     style="background-image: url('<?= $src ?>')">
+                    <h3 class="card-image-headline"><?= $title ?></h3>
+                </div>
                 <div class="card-body">
                     <a href="<?= Url::to(['category/view', 'id' => $feed->category_id]) ?>">
                         <span class="badge badge-warning"><?= $feed->getCategoryName() ?></span>
@@ -33,7 +22,10 @@ HTML;
                     <p><?= $feed->content ?></p>
                 </div>
                 <footer class="card-footer">
-                    <button class="btn btn-raised btn-primary">Read More</button>
+                    <?= Html::a('Read More', Url::to(['feed/view', 'id' => $feed->id]), [
+                        'class' => 'btn btn-raised btn-primary',
+                        'style' => 'left: 0'
+                    ]) ?>
                 </footer>
             </div>
         </div>

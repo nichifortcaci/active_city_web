@@ -98,7 +98,7 @@ $date = [
                 </div>
                 <button id="support" class="pull-right btn btn-raised btn-warning btn-fab"
                         data-feed-id="<?= $model->id ?>"
-                        style="margin: 10px 0;" <?= Support::hasSupport($model->id) ? "disabled" : "" ?>>
+                        style="margin: 10px 0;" <?= Support::hasSupport($model->id) || Yii::$app->user->id == $model->user_id ? "disabled" : "" ?>>
                     <i class="material-icons">done</i>
                 </button>
                 <h4>

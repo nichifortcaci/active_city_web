@@ -20,14 +20,14 @@ MainmapAsset::register($this);
     <h1>Feeds</h1>
     <hr>
     <div class="row">
-        <?php foreach (Feed::find()->all() as $feed): ?>
+        <?php foreach (Feed::find()->orderBy('id')->all() as $feed): ?>
             <?= $this->render('../feed/_item', [
                 'feed' => $feed
             ]) ?>
         <?php endforeach; ?>
     </div>
-    
-    <div class="row">
+
+    <div class="row hidden">
         <div class="col-xs-12">
             <div class="bs-component">
                 <ul class="pagination pagination-lg" style="margin: auto; display: table;">

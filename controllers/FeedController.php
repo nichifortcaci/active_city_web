@@ -8,6 +8,7 @@ use Yii;
 use app\models\Feed;
 use app\models\FeedSearch;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -48,9 +49,9 @@ class FeedController extends Controller
         $final = [];
         foreach ($c as $q) {
             $final[$q->name] = [];
-            foreach (Feed::findAll([
+            foreach (Feed::find()->orderBy('id')->where([
                 'category_id' => $q->id
-            ]) as $f)
+            ])->all() as $f)
                 $final[$q->name][] = $f;
         }
         return $this->render('all', [
@@ -77,6 +78,8 @@ class FeedController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest)
+            throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
         $model = new Feed();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -144,7 +147,7 @@ class FeedController extends Controller
             'content' => $content,
             'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
             'cssInline' => '',
-            'options' => ['title' => 'Feed #' . 1],
+            'options' => ['title' => 'Feed #' . $model->id],
             'methods' => [
                 'SetHeader' => ['Active City'],
                 'SetFooter' => ['{PAGENO}'],

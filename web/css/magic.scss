@@ -227,3 +227,14 @@ hr {
 .dtp > .dtp-content {
     max-height: 536px !important;
 }
+.map {
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.map__legend {
+    overflow: hidden;
+    .map__legend__item {
+        white-space: nowrap;
+        overflow: hidden;
+        height: 17px;
+    }
+}

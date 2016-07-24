@@ -3,6 +3,9 @@
 namespace app\controllers;
 
 use app\models\ContactForm;
+use app\models\Feed;
+use app\models\Notify;
+use app\models\Support;
 use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
@@ -129,5 +132,27 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionNotify()
+    {
+        $final = [];
+        foreach (Feed::findAll(['user_id' => Yii::$app->user->id]) as $feed) {
+            foreach (Support::findAll(['feed_id' => $feed->id]) as $sup) {
+                if (!$sup->readed) {
+                    $final[] = [
+                        'user' => User::findOne($sup->user_id),
+                        'feed' => [
+                            'title' => $feed->title,
+                            'id' => $feed->id
+                        ]
+                    ];
+                    $sup->readed = true;
+                    $sup->save();
+                }
+            }
+        }
+        \Yii::$app->response->format = 'json';
+        return $final;
     }
 }
