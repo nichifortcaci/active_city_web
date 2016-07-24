@@ -103,10 +103,16 @@ if(Yii::$app->controller->id=='site' && Yii::$app->controller->action->id=='inde
     googleMapGenerator.options.locations = [
     <?php
         
+        $ref=[
+        "\n"=>'<br>',
+        "'"=>'`',
+        '"'=>'`',
+        "\t"=>'&nbsp;'
+        ];
         foreach ($result as $row){
             $location = json_decode($row->location,1);
-            
-            echo('["'.str_replace('"', '\"', $row->title).'","Republica Moldova Chișinău","'.str_replace('"', '\"', $row->content).'",'.$location['latitude'].','.$location['longitude'].'],'."\n");
+
+            echo('["'.strtr($row->title,$ref).'","Republica Moldova Chișinău","'.strtr($row->content,$ref).'",'.$location['latitude'].','.$location['longitude'].'],'."\n");
     }
 
     ?>
