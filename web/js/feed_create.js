@@ -1,38 +1,24 @@
 var combat = '';
-$(document).ready(function () {
-    var g_lat = '';
-    var g_lon = '';
+var g_lat = '';
+var g_lon = '';
 
-    var find_me = $('#find_me').length;
+var find_me = $('#find_me').length;
 
-    //$('.bs_datetime').bootstrapMaterialDatePicker();
-    var elements = $('#feed-start_datetime, #feed-end_datetime');
-    if (elements.length) {
-        elements.bootstrapMaterialDatePicker({format: 'YYYY-MM-DD HH:mm', minDate: new Date()});
-    }
-
-
-    //Google Maps JS
-    //Set Map
+//$('.bs_datetime').bootstrapMaterialDatePicker();
+var elements = $('#feed-start_datetime, #feed-end_datetime');
+if (elements.length) {
+    elements.bootstrapMaterialDatePicker({format: 'YYYY-MM-DD HH:mm', minDate: new Date()});
+}
 
 
+function setPagell(str) {
+    var ll = JSON.stringify(str);
+    $('#location').val(ll);
+}
 
-    // $.get('http://ip-api.com/json/',function(data){
-    // 	g_lat = data.lat;
-    // 	g_lon = data.lon;
-    // 	console.log('he')
-    // 	google.maps.event.addDomListener(window, 'load', initialize);
-    // })
-
-    function setPagell(str) {
-        var ll = JSON.stringify(str);
-        $('#location').val(ll);
-    }
-
-    if ($('#map').length) {
-        google.maps.event.addDomListener(window, 'load', initialize);
-    }
-});
+if ($('#map').length) {
+    google.maps.event.addDomListener(window, 'load', initialize);
+}
 
 function initialize() {
 

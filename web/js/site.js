@@ -36,9 +36,18 @@ $(function () {
 
     $('#support').click(support);
 
-    $(document).on('submit', '#feed-create', feedCreate);
+    $(document).on('submit', '#myModal #feed-create', feedCreate);
 
-    $(document).ajaxComplete(initialize)
+    $(document).ajaxComplete(function () {
+
+        initialize();
+
+        var elements = $('#feed-start_datetime, #feed-end_datetime');
+        if (elements.length) {
+            elements.bootstrapMaterialDatePicker({format: 'YYYY-MM-DD HH:mm', minDate: new Date()});
+        }
+    })
+
     $('#myModal').on('show.bs.modal', function () {
         loadFeedForm();
     })
@@ -113,6 +122,7 @@ function loadFeedForm() {
         url: '/feed/create',
         success: function (response) {
             $('#feed-body').html(response);
+            $('#myModal').modal('hide');
         }
     });
 }

@@ -25,6 +25,12 @@ $date = [
         'year' => date('Y', strtotime($model->start_datetime)),
         'time' => date('H:m', strtotime($model->start_datetime)),
     ],
+    [
+        'day' => date('d', strtotime($model->end_datetime)),
+        'month' => date('F', strtotime($model->end_datetime)),
+        'year' => date('Y', strtotime($model->end_datetime)),
+        'time' => date('H:m', strtotime($model->end_datetime)),
+    ],
 ];
 
 ?>
@@ -36,14 +42,16 @@ $date = [
                 <div class="row">
                     <div class="col-xs-2">
                         <?= Html::img($user->getPhoto(), [
-                            'class' => 'user-photo'
+                            'class' => 'user-photo',
+                            'style' => 'position: absolute; left: 18px'
                         ]) ?>
                     </div>
-                    <div class="col-xs-10">
+                    <div class="col-xs-10 col-xs-offset-1">
                         <h1 class="text-center feed-title">
                             <?= Html::encode($this->title) ?>
                             <br>
-                            <small>written by <b><?= $user->name ?></b></small>
+                            <small>written by <b><?= $user->name ?></b> in <b><i><?= $category->name ?></i></b>
+                            </small>
                         </h1>
                     </div>
                 </div>
@@ -62,10 +70,16 @@ $date = [
                     </div>
                     <div class="col-md-6">
                         <div class="pull-right">
-                            <span style="font-size: 19px; display: inline-block;"><?= $category->name ?></span>
-                            <?= Html::img('/storage/accident_min.png', [
-                                'style' => 'width: 50px; display: inline-block;'
-                            ]) ?>
+                            <div class="sdate">
+                                <div class="other_sdate">
+                                    <div class="smounth"><?= $date[1]['month'] ?></div>
+                                    <div class="other_syear_time">
+                                        <span class="syear"><?= $date[1]['year'] ?></span>
+                                        <span class="stime"><?= $date[1]['time'] ?></span>
+                                    </div>
+                                </div>
+                                <div class="sday"><?= $date[1]['day'] ?></div>
+                            </div>
                         </div>
                     </div>
                 </div>

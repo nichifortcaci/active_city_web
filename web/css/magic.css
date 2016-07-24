@@ -172,4 +172,7 @@ hr {
     position: absolute;
     background: #FF9800; }
 
+.dtp > .dtp-content {
+  max-height: 536px !important; }
+
 /*# sourceMappingURL=magic.css.map */
