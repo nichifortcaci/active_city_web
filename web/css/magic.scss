@@ -213,6 +213,8 @@ hr {
 }
 .card-body {
     position: relative;
+    overflow: hidden;
+    border-bottom: 2px solid #FFF;
     .badge {
         &.badge-warning {
             top: 2px;

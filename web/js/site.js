@@ -46,7 +46,8 @@ $(function () {
         if (elements.length) {
             elements.bootstrapMaterialDatePicker({format: 'YYYY-MM-DD HH:mm', minDate: new Date()});
         }
-    })
+        // $('#find_me').click();
+    });
 
     $('#myModal').on('show.bs.modal', function () {
         loadFeedForm();
@@ -110,6 +111,9 @@ function feedCreate(e) {
                     _snack('Something went wrong!');
                 } else {
                     _snack('OK!');
+
+                    $('#myModal').modal('hide');
+                    $('#feed-body').empty();
                 }
             }
         }
@@ -122,7 +126,6 @@ function loadFeedForm() {
         url: '/feed/create',
         success: function (response) {
             $('#feed-body').html(response);
-            $('#myModal').modal('hide');
         }
     });
 }

@@ -165,7 +165,9 @@ hr {
   background: #ccc !important; }
 
 .card-body {
-  position: relative; }
+  position: relative;
+  overflow: hidden;
+  border-bottom: 2px solid #FFF; }
   .card-body .badge.badge-warning {
     top: 2px;
     right: 5px;

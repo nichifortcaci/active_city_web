@@ -64,7 +64,7 @@ function initialize() {
     var find_me = $('#find_me').length;
 
     if (find_me) {
-        console.log('ye');
+        // console.log('ye');
         $('#find_me').click(function () {
             $.get('http://ip-api.com/json/', function (data) {
                 g_lat = data.lat;

@@ -35,7 +35,7 @@ class Feed extends \yii\db\ActiveRecord
         return [
             [['title', 'content', 'category_id', 'start_datetime'], 'required'],
             [['category_id'], 'integer'],
-            [['start_datetime', 'end_datetime'], 'safe'],
+            [['start_datetime', 'end_datetime', 'location'], 'safe'],
             [['title'], 'string', 'max' => 100],
             [['media'], 'string', 'max' => 350],
         ];
@@ -99,8 +99,6 @@ class Feed extends \yii\db\ActiveRecord
     public function getMapImg()
     {
         $gps = (array)json_decode($this->location);
-        if(empty($gps['longitude']))
-            die(var_dump($this));
         return strtr('https://maps.googleapis.com/maps/api/staticmap?maptype=terrain&center={{lat}},{{long}}&size=640x500&zoom=18&markers=color:0xFF9800%7Clabel:%7C47.022907,28.835415&key=AIzaSyBLrIRLPaIZFiQs7pJN6nN6iBZO9G4t41Q', [
             '{{long}}' => $gps['longitude'],
             '{{lat}}' => $gps['latitude'],
