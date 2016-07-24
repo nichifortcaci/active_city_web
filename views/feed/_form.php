@@ -32,7 +32,10 @@ MapsAsset::register($this);
 	</div>
 
 	<?= $form->field($model, 'location')->hiddenInput(['id'=>'location'])->label(false) ?>
-	<div id="map"></div>
+	<div class="form-group field-feed-location">
+		<button class="btn btn-primary" id="find_me">find me</button>
+		<div id="map" class="col-xs-12" style="float: none!important;"></div>
+	</div>
 	<?php $result = Category::find()->all();
 	$array = ArrayHelper::map($result, 'id', 'name');
 
